@@ -1,4 +1,9 @@
-```python
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[164]:
+
+
 """1. Ecrire une fonction python r_names() qui admet pour entrer une de ces chaînes de caractères et qui retourne 
 une liste de nom de colonnes"""
 
@@ -19,13 +24,11 @@ def r_names(names_elus):
         l1.append(i)
     return l1
 print(r_names(names_elus))
-```
-
-    ['code_insee', 'mode_de_scrutin', 'num_liste', 'code_nuance_de_la_liste', 'numero_du_candidat_dans_la_liste', 'tour', 'nom', 'prenom', 'sexe', 'Date_de_naissance', 'code_profession', 'libelle_profession', 'nationalite']
 
 
+# In[150]:
 
-```python
+
 Nuanceier_plolitique = "code	libellé	ordre	définition"
 def r_names(Nuancier_plolitique):
     l1 =[]
@@ -42,13 +45,11 @@ def r_names(Nuancier_plolitique):
         l1.append(i)
     return l1
 print(r_names(Nuancier_plolitique))
-```
-
-    ['code', 'libelle', 'ordre', 'definition']
 
 
+# In[149]:
 
-```python
+
 Liste_des_villes = "id	departement_code	code_insee	zip_code	name"
 def r_names(Liste_des_villes):
     l1 =[]
@@ -65,13 +66,11 @@ def r_names(Liste_des_villes):
         l1.append(i)
     return l1
 print(r_names(Liste_des_villes))
-```
-
-    ['id', 'departement_code', 'code_insee', 'zip_code', 'name']
 
 
+# In[151]:
 
-```python
+
 Référentiel_géographique = "Code	Nb d'emplois	Artisans, commerçants, chefs d'entreprise	"
 Référentiel_géographique += "Cadres et professions intellectuelles supérieures	Professions intermédaires	"
 Référentiel_géographique += "Employés	Ouvriers"
@@ -91,13 +90,11 @@ def r_names(Référentiel_géographique):
         l1.append(i)
     return l1
 print(r_names(Référentiel_géographique))
-```
-
-    ['Code', 'Nb_d_emplois', 'Artisans_commerçants_chefs_d_entreprise', 'Cadres_et_professions_intellectuelles_superieures', 'Professions_intermedaires', 'Employes', 'Ouvriers']
 
 
+# In[145]:
 
-```python
+
 Population_France_par_commune = "Code insée	Population légale"
 def r_names(Population_France_par_commune):
     l1 =[]
@@ -114,13 +111,11 @@ def r_names(Population_France_par_commune):
         l1.append(i)
     return l1
 print(r_names(Population_France_par_commune))
-```
-
-    ['Code_insee', 'Population_legale']
 
 
+# In[146]:
 
-```python
+
 Liste_départements = "id	region_code	code	name	nom normalisé"
 def r_names(Liste_départements):
     l1 =[]
@@ -137,13 +132,11 @@ def r_names(Liste_départements):
         l1.append(i)
     return l1
 print(r_names(Liste_départements))
-```
-
-    ['id', 'region_code', 'code', 'name', 'nom_normalise']
 
 
+# In[130]:
 
-```python
+
 """2. Ecrire une fonction python parse_dates() qui admet pour entrer la liste renvoyer par r_names() 
 et qui retourne une liste contenant seulement les noms de colonnes commençant par « Date»"""
 l1 = ['code_insee', 'mode_de_scrutin', 'numliste', 'code_nuance_de_la_liste', 'numero_du_candidat_dans_la_listetour', 'nom', 'prenom', 'sexe', 'Date_de_naissance', 'code_profession', 'libelle_profession', 'nationalite']
@@ -155,13 +148,10 @@ def parse_dates(l1):
     return l3
 print(parse_dates(l1))
 
-```
 
-    ['Date_de_naissance']
-
+# In[194]:
 
 
-```python
 """6. Les fichiers ayant la même structure, écrire une fonction chargement() pour alimenter la base « RNE » avec
 ces fichiers. Cette fonction utilisera les fonction r_names et parses_dates(). Elle aura pour entrer la chaîne de
 caractère contenant le nom des colonnes, le chemin d’accès vers le fichier et le nom de la table dans la quel écrire.
@@ -184,14 +174,10 @@ def chargement(link, table, names_elus):
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/elus_mun2014.xlsx', 'elus', names_elus)
 
-```
 
-    Lecture des données
-    fin
+# In[199]:
 
 
-
-```python
 Nuancier_plolitique = ['code', 'libelle', 'ordre', 'definition']
 
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
@@ -206,14 +192,9 @@ def chargement(link, table, Nuanceier_plolitique):
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/codes_nuances.xlsx', 'nuancier', Nuancier_plolitique)
 
 
-```
-
-    Lecture des données
-    fin
+# In[205]:
 
 
-
-```python
 Liste_des_villes = ['id', 'departement_code', 'code_insee', 'zip_code', 'name']
 
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
@@ -228,14 +209,9 @@ def chargement(link, table, Liste_des_villes):
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/cities.xlsx', 'villes', Liste_des_villes)
 
 
-```
-
-    Lecture des données
-    fin
+# In[217]:
 
 
-
-```python
 Référentiel_géographique = ['Code', 'Nb_d_emplois', 'Artisans_commerçants_chefs_d_entreprise', 'Cadres_et_professions_intellectuelles_superieures', 'Professions_intermedaires', 'Employes', 'Ouvriers']
 
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
@@ -248,14 +224,11 @@ def chargement(link, table, Référentiel_géographique):
     return print("fin")
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/categorie_professionelle.xlsx', 'categorie', Référentiel_géographique)
-```
-
-    Lecture des données
-    fin
 
 
+# In[213]:
 
-```python
+
 Population_France_par_commune = ['Code_insee', 'Population_legale']
 
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
@@ -268,14 +241,11 @@ def chargement(link, table, Population_France_par_commune):
     return print("fin")
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/population2017.xlsx', 'population', Population_France_par_commune)
-```
-
-    Lecture des données
-    fin
 
 
+# In[214]:
 
-```python
+
 Liste_départements = ['id', 'region_code', 'code', 'name', 'nom_normalise']
 
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
@@ -288,13 +258,10 @@ def chargement(link, table, Liste_départements):
     return print("fin")
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/departments.xlsx', 'departements', Liste_départements)
-```
-
-    Lecture des données
-    fin
 
 
+# In[ ]:
 
-```python
 
-```
+
+

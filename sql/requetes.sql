@@ -18,7 +18,7 @@ WHERE D.NAME LIKE "VAR" AND DATE_DE_NAISSANCE BETWEEN '1900-06-01' AND '2019-08-
 SELECT Date_de_naissance
 , SEXE
 , NOM
-, AVG(timestampdiff(YEAR, Date_de_naissance, "2014-01-01")) AS MOYENNE
+, AVG(timestampdiff(YEAR, Date_de_naissance, "2014-01-01"))  MOYENNE
  FROM ELUS
  GROUP BY NOM, SEXE, DATE_DE_NAISSANCE
  ORDER BY SEXE; 
@@ -82,22 +82,21 @@ ORDER BY NOM DESC LIMIT 10;
 
 # 16. Donner l’âge moyen des élus par départements au 01/01/2014. Les afficher par ordre décroissant
 
-SELECT V.NAME
+SELECT D.NAME
 , AVG(timestampdiff(YEAR, Date_de_naissance, "2014-01-01")) AS AGE_MOYEN
 FROM ELUS E
 JOIN VILLES V ON E.CODE_INSEE = V.CODE_INSEE
 JOIN DEPARTEMENTS D ON V.DEPARTEMENT_CODE = D.CODE
-GROUP BY V.NAME
+GROUP BY D.NAME
 ORDER BY AGE_MOYEN DESC;
 
 # 17. Afficher les départements où l’âge moyen des élus est strictement inférieur à 54 ans.
 
-SELECT V.NAME
+SELECT D.NAME
 , AVG(timestampdiff(YEAR, Date_de_naissance, "2014-01-01")) AS AGE_MOYEN
 FROM ELUS E
 JOIN VILLES V ON E.CODE_INSEE = V.CODE_INSEE
 JOIN DEPARTEMENTS D ON V.DEPARTEMENT_CODE = D.CODE
-GROUP BY V.NAME  
+GROUP BY D.NAME  
 HAVING AGE_MOYEN < 54
-ORDER BY AGE_MOYEN 
-;
+ORDER BY D.NAME ;

@@ -159,35 +159,69 @@ Alimenter la base avec les fichiers"""
 
 from sqlalchemy import create_engine
 import pandas as pd
-from re import findall
+import time
+#from re import findall
 
-names_elus = ['code_insee', 'mode_de_scrutin', 'numliste', 'code_nuance_de_la_liste', 'numero_du_candidat_dans_la_liste', 'tour', 'nom', 'prenom', 'sexe', 'Date_de_naissance', 'code_profession', 'libelle_profession', 'nationalite']
+#names_elus = ['code_insee', 'mode_de_scrutin', 'numliste', 'code_nuance_de_la_liste', 'numero_du_candidat_dans_la_liste', 'tour', 'nom', 'prenom', 'sexe', 'Date_de_naissance', 'code_profession', 'libelle_profession', 'nationalite']
 
+#engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
+
+#def chargement(link, table, names_elus):
+    #print("Lecture des données")
+    #link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/elus_mun2014.xlsx'
+    #df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = names_elus)
+    #df.to_sql('elus', con = engine, if_exists='append', index = False)
+    #return print("fin")
+
+#chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/elus_mun2014.xlsx', 'elus', names_elus)
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
 
-def chargement(link, table, names_elus):
-    print("Lecture des données")
-    link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/elus_mun2014.xlsx'
-    df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = names_elus)
-    df.to_sql('elus', con = engine, if_exists='append', index = False)
-    return print("fin")
+def chargement(link, table, names):
+    print("Lectture des données")
+
+    names = r_names(names_elus)
+    date = parse_dates(names_elus)
+
+    df = pd.read_exel(link, skiprows = [0,1], header = None, names = names_elus, parses_date = date)
+
+    df.to_sql(table, con = engine, if_exists ='append, index = False')
+
+    return print("Fin")
+
+names_elus = "code (insee)	mode de scrutin	num liste	code (nuance de la liste)	numéro du candidat dans la liste	" 
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/elus_mun2014.xlsx', 'elus', names_elus)
-
 
 # In[199]:
 
 
-Nuancier_plolitique = ['code', 'libelle', 'ordre', 'definition']
+#Nuancier_plolitique = ['code', 'libelle', 'ordre', 'definition']
 
+#engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
+
+#def chargement(link, table, Nuanceier_plolitique):
+    #print("Lecture des données")
+    #link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/codes_nuances.xlsx'
+    #df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Nuancier_plolitique)
+    #df.to_sql('nuancier', con = engine, if_exists='append', index = False)
+    #return print("fin")
+
+#chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/codes_nuances.xlsx', 'nuancier', Nuancier_plolitique)
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
 
-def chargement(link, table, Nuanceier_plolitique):
-    print("Lecture des données")
-    link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/codes_nuances.xlsx'
-    df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Nuancier_plolitique)
-    df.to_sql('nuancier', con = engine, if_exists='append', index = False)
-    return print("fin")
+def chargement(link, table, names):
+    print("Lectture des données")
+
+    names = r_names(Nuancier_plolitique)
+    date = parse_dates(Nuancier_plolitique)
+
+    df = pd.read_exel(link, skiprows = [0,1], header = None, names = Nuancier_plolitique, parses_date = date)
+
+    df.to_sql(table, con = engine, if_exists ='append, index = False')
+
+    return print("Fin")
+
+Nuanceier_plolitique = "code	libellé	ordre	définition"
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/codes_nuances.xlsx', 'nuancier', Nuancier_plolitique)
 
@@ -195,67 +229,130 @@ chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/codes_nuances.xl
 # In[205]:
 
 
-Liste_des_villes = ['id', 'departement_code', 'code_insee', 'zip_code', 'name']
+#Liste_des_villes = ['id', 'departement_code', 'code_insee', 'zip_code', 'name']
 
+#engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
+
+#def chargement(link, table, Liste_des_villes):
+    #print("Lecture des données")
+    #link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/cities.xlsx'
+    #df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Liste_des_villes)
+    #df.to_sql('villes', con = engine, if_exists='append', index = False)
+    #return print("fin")
+
+#chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/cities.xlsx', 'villes', Liste_des_villes)
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
 
-def chargement(link, table, Liste_des_villes):
-    print("Lecture des données")
-    link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/cities.xlsx'
-    df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Liste_des_villes)
-    df.to_sql('villes', con = engine, if_exists='append', index = False)
-    return print("fin")
+def chargement(link, table, names):
+    print("Lectture des données")
+
+    names = r_names(Liste_des_villes)
+    date = parse_dates(Liste_des_villes)
+
+    df = pd.read_exel(link, skiprows = [0,1], header = None, names = Liste_des_villes, parses_date = date)
+
+    df.to_sql(table, con = engine, if_exists ='append, index = False')
+
+    return print("Fin")
+
+Liste_des_villes = "id	departement_code	code_insee	zip_code	name"
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/cities.xlsx', 'villes', Liste_des_villes)
-
-
 # In[217]:
 
 
-Référentiel_géographique = ['Code', 'Nb_d_emplois', 'Artisans_commerçants_chefs_d_entreprise', 'Cadres_et_professions_intellectuelles_superieures', 'Professions_intermedaires', 'Employes', 'Ouvriers']
+#Référentiel_géographique = ['Code', 'Nb_d_emplois', 'Artisans_commerçants_chefs_d_entreprise', 'Cadres_et_professions_intellectuelles_superieures', 'Professions_intermedaires', 'Employes', 'Ouvriers']
 
+#engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
+
+#def chargement(link, table, Référentiel_géographique):
+    #print("Lecture des données")
+    #link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/categorie_professionelle.xlsx'
+    #df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Référentiel_géographique)
+    #df.to_sql('categorie', con = engine, if_exists='append', index = False)
+    #return print("fin")
+
+#chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/categorie_professionelle.xlsx', 'categorie', Référentiel_géographique)
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
 
-def chargement(link, table, Référentiel_géographique):
-    print("Lecture des données")
-    link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/categorie_professionelle.xlsx'
-    df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Référentiel_géographique)
-    df.to_sql('categorie', con = engine, if_exists='append', index = False)
-    return print("fin")
+def chargement(link, table, names):
+    print("Lectture des données")
 
-chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/categorie_professionelle.xlsx', 'categorie', Référentiel_géographique)
+    names = r_names(Référentiel_géographique)
+    date = parse_dates(Référentiel_géographique)
 
+    df = pd.read_exel(link, skiprows = [0,1], header = None, names = Référentiel_géographique, parses_date = date)
+
+    df.to_sql(table, con = engine, if_exists ='append, index = False')
+
+    return print("Fin")
+
+Référentiel_géographique = ['Code', 'Nb_d_emplois', 'Artisans_commerçants_chefs_d_entreprise', 'Cadres_et_professions_intellectuelles_superieures', 'Professions_intermedaires', 'Employes', 'Ouvriers']
+
+chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/categorie_professionelle.xlsx',                'categorie', Référentiel_géographique)
 
 # In[213]:
 
 
-Population_France_par_commune = ['Code_insee', 'Population_legale']
+#Population_France_par_commune = ['Code_insee', 'Population_legale']
 
+#engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
+
+#def chargement(link, table, Population_France_par_commune):
+    #print("Lecture des données")
+    #link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/population2017.xlsx'
+    #df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Population_France_par_commune)
+    #df.to_sql('population', con = engine, if_exists='append', index = False)
+    #return print("fin")
+
+#chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/population2017.xlsx', 'population', Population_France_par_commune)
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
 
-def chargement(link, table, Population_France_par_commune):
-    print("Lecture des données")
-    link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/population2017.xlsx'
-    df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Population_France_par_commune)
-    df.to_sql('population', con = engine, if_exists='append', index = False)
-    return print("fin")
+def chargement(link, table, names):
+    print("Lectture des données")
+
+    names = r_names(Population_France_par_commune)
+    date = parse_dates(Population_France_par_commune)
+
+    df = pd.read_exel(link, skiprows = [0,1], header = None, names = Population_France_par_commune, parses_date = date)
+
+    df.to_sql(table, con = engine, if_exists ='append, index = False')
+
+    return print("Fin")
+
+Population_France_par_commune = ['Code_insee', 'Population_legale']
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/population2017.xlsx', 'population', Population_France_par_commune)
-
-
 # In[214]:
 
 
-Liste_départements = ['id', 'region_code', 'code', 'name', 'nom_normalise']
+#Liste_départements = ['id', 'region_code', 'code', 'name', 'nom_normalise']
 
+#engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
+
+#def chargement(link, table, Liste_départements):
+    #print("Lecture des données")
+    #link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/departments.xlsx'
+    #df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Liste_départements)
+    #df.to_sql('departements', con = engine, if_exists='append', index = False)
+    #return print("fin")
+
+#chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/departments.xlsx', 'departements', Liste_départements)
 engine = create_engine("mysql+pymysql://RNE_user:RNE_pasword@localhost/RNE")
 
-def chargement(link, table, Liste_départements):
-    print("Lecture des données")
-    link = '/Users/mosbahhachem/Documents/git/Evaluation/Tables/departments.xlsx'
-    df = pd.read_excel(link , skiprows=0,header=1, set='\t', names = Liste_départements)
-    df.to_sql('departements', con = engine, if_exists='append', index = False)
-    return print("fin")
+def chargement(link, table, names):
+    print("Lectture des données")
+
+    names = r_names(Liste_départements)
+    date = parse_dates(Liste_départements)
+
+    df = pd.read_exel(link, skiprows = [0,1], header = None, names = Liste_départements, parses_date = date)
+
+    df.to_sql(table, con = engine, if_exists ='append, index = False')
+
+    return print("Fin")
+
+Liste_départements = ['id', 'region_code', 'code', 'name', 'nom_normalise']
 
 chargement('/Users/mosbahhachem/Documents/git/Evaluation/Tables/departments.xlsx', 'departements', Liste_départements)
 
